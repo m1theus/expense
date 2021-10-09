@@ -1,0 +1,10 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/expenseapi?schema=expenseapi
+    username: expenseapi
+    password: expenseapi
+    pool:
+      initial-size: 10
+      max-size: 33
+      max-idle: 30m
+      validation-query: Select 1

@@ -1,0 +1,58 @@
+buildscript {
+    dependencies {
+        classpath "postgresql:postgresql:9.1-901-1.jdbc4"
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id "org.flywaydb.flyway" version "8.0.0"
+}
+
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Database
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly 'io.r2dbc:r2dbc-postgresql'
+    implementation 'io.r2dbc:r2dbc-pool'
+
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    // Boilerplate code (getters, setters, constructors, builders).
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor "org.projectlombok:lombok:1.18.10"
+
+    // Swagger
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+
+    // Tests
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/'
+    user = 'expenseapi'
+    password = 'expenseapi'
+    schemas = ['expenseapi']
+}
