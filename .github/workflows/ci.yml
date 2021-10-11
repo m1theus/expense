@@ -4,8 +4,12 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
+    paths:
+      - 'expense-api/**'
     branches: [main]
   pull_request:
+    paths:
+      - 'expense-api/**'
     branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -13,11 +17,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # This workflow contains a single job called "build"   
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    env:
+      workong-directory: ./expense-api
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -30,15 +35,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        with:
-          path: expense-api/
 
       - name: Build
         run: ./gradlew clean build -x test
-        with:
-          path: expense-api/
 
       - name: Tests
         run: ./gradlew test
-        with:
-          path: expense-api/
