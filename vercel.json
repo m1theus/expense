@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "./expense-bff/main.js",
+      "src": "./expense-bff/src/main.js",
       "use": "@vercel/node"
     }
   ],

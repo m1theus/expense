@@ -7,6 +7,7 @@ import {
 
 const routes = Router();
 
+routes.get("/", (_req, response) => response.json({ version: "1.0.0" }));
 routes.post("/expense", createExpense);
 routes.get("/expense", findAllExpense);
 routes.get("/expense/:id", findExpenseById);
