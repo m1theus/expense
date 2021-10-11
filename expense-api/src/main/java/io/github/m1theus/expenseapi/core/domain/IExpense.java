@@ -2,7 +2,7 @@ package io.github.m1theus.expenseapi.core.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 public interface IExpense {
     String getPersonName();
@@ -13,5 +13,5 @@ public interface IExpense {
 
     BigDecimal getExpenseValue();
 
-    List<String> getTags();
+    Set<String> getTags();
 }
