@@ -1,11 +1,11 @@
-# expense
+# expense [![CI](https://github.com/m1theus/expense/actions/workflows/ci.yml/badge.svg)](https://github.com/m1theus/expense/actions/workflows/ci.yml) [![Deploy expense-bff to AWS](https://github.com/m1theus/expense/actions/workflows/expense-bff-aws.yml/badge.svg)](https://github.com/m1theus/expense/actions/workflows/expense-bff-aws.yml) [![Deploy expense-api to AWS](https://github.com/m1theus/expense/actions/workflows/expense-api-aws.yml/badge.svg)](https://github.com/m1theus/expense/actions/workflows/expense-api-aws.yml)
 
 
-Api responsável por gerenciar gastos/desesas.
+Api responsável por gerenciar gastos/despesas.
 
 ---
 
-### expense-api
+### expense-api - [Swagger](http://expense-api.us-east-1.elasticbeanstalk.com/swagger-ui/index.html)
 
 Dependências
 
@@ -44,7 +44,7 @@ docker-compose -p expense-api up -d
 ```
 
 ---
-### expense-bff
+### expense-bff - [API](http://expense-bff.us-east-1.elasticbeanstalk.com/)
 
 Dependências
 - [NodeJS](https://nodejs.org/en/)
@@ -64,7 +64,7 @@ yarn start ou npm run start
 ```
 
 ---
-### expense-ui
+### expense-ui - [API](https://expense-ui.vercel.app/)
 
 Dependências
 - [ReactJS](https://pt-br.reactjs.org/)
