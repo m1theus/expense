@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'expense-api/**'
+      - '.github/worksflows/ci.yml'
     branches: [main]
   pull_request:
     paths:
@@ -44,3 +45,9 @@ jobs:
 
       - name: Tests
         run: ./gradlew test
+        
+      - name: Upload Tests report
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: build/reports/tests/test
