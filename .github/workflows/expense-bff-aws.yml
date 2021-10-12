@@ -1,4 +1,4 @@
-name: Deploy expense-api AWS
+name: Deploy expense-bff AWS
 on:
   pull_request:
     branches: [main]
