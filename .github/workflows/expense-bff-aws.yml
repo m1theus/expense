@@ -22,8 +22,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install
-
+    
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+      
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v18
         with:
@@ -34,5 +36,6 @@ jobs:
           environment_name: expense-bff
           version_label: ${{ github.run_id }}
           version_description: ${{ github.sha }}
+          deployment_package: deploy.zip
           use_existing_version_if_available: true
           wait_for_environment_recovery: 120
