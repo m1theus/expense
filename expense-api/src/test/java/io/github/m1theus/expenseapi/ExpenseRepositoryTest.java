@@ -80,7 +80,7 @@ class ExpenseRepositoryTest {
 
         StepVerifier.create(optEntity)
             .expectNextMatches(opt -> {
-                assertThat(opt.isPresent()).isTrue();
+                assertThat(opt).isPresent();
                 assertThat(opt.get()).isNotNull();
                 return true;
             })

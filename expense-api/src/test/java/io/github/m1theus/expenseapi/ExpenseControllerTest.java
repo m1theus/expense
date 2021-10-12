@@ -14,8 +14,13 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -31,8 +36,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
+@Testcontainers
 class ExpenseControllerTest {
     @MockBean
     private ExpenseDao expenseDaoMock;
@@ -43,8 +50,20 @@ class ExpenseControllerTest {
     @Autowired
     private WebTestClient webClient;
 
+    @Container
+    private static final PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres");
+
     private static final String API_PATH = "/api/expense";
     private static final Long EXPENSE_ID = 1337L;
+
+    @DynamicPropertySource
+    static void registerDynamicProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.r2dbc.url", () -> "r2dbc:postgresql://"
+            + postgreSQLContainer.getHost() + ":" + postgreSQLContainer.getFirstMappedPort()
+            + "/" + postgreSQLContainer.getDatabaseName());
+        registry.add("spring.r2dbc.username", postgreSQLContainer::getUsername);
+        registry.add("spring.r2dbc.password", postgreSQLContainer::getPassword);
+    }
 
     @BeforeEach
     void setup() {

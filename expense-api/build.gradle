@@ -39,11 +39,15 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.10"
 
     // Swagger
-    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
     // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.testcontainers:r2dbc:1.16.0'
+    testImplementation 'org.testcontainers:postgresql:1.16.0'
+    testImplementation "org.testcontainers:testcontainers:1.16.0"
+    testImplementation "org.testcontainers:junit-jupiter:1.16.0"
 }
 
 test {
