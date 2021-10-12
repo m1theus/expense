@@ -25,7 +25,16 @@ jobs:
 
       - name: Build
         run: ./gradlew clean build test
-
+        
+      - name: Database Migration
+      - shell: bash
+        env:
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        run: |
+          ./migration.sh
+        
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v18
         with:
