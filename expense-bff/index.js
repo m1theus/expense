@@ -9,7 +9,15 @@ config();
 const app = express();
 
 app.use(json());
-app.use(cors());
+app.use(
+  cors({
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Access-Control-Allow-Origin", "Accept"],
+    origin: "*",
+    credentials: true,
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  })
+);
 app.use(routes);
 
 app.listen(process.env.PORT || 3000, () => console.log("app started!"));
