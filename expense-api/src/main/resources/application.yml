@@ -3,7 +3,7 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/expenseapi?schema=expenseapi
+    url: r2dbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/postgres?schema=expenseapi
     username: ${DATABASE_USERNAME:expenseapi}
     password: ${DATABASE_PASSWORD:expenseapi}
     pool:
