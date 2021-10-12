@@ -43,6 +43,6 @@ jobs:
           environment_name: expense-api
           version_label: ${{ github.run_id }}
           version_description: ${{ github.sha }}
-          deployment_package: build/libs/expense-api.jar
+          deployment_package: ./expense-api/build/libs/expense-api.jar
           use_existing_version_if_available: true
           wait_for_environment_recovery: 120
