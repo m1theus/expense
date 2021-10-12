@@ -1,5 +1,14 @@
-import fetch from "node-fetch";
+const express = require("express");
+const { json, Router } = require("express");
+const cors = require("cors");
+const { config } = require("dotenv");
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
+config();
+
+const app = express();
+const routes = Router();
 const headers = {
   accept: "application/json",
   "Content-Type": "application/json",
@@ -8,7 +17,9 @@ const headers = {
 const BACKEND_URL =
   process.env.BACKEND_URL || "http://localhost:8080/api/expense";
 
-export const createExpense = async (request, _response) => {
+routes.get("/", (_req, response) => response.json({ version: "1.0.0" }));
+
+routes.post("/expense", async (request, _response) => {
   console.log(request.body);
   if (!request.body) {
     _response.status(400);
@@ -38,9 +49,9 @@ export const createExpense = async (request, _response) => {
     console.log(error);
     _response.status(500);
   }
-};
+});
 
-export const findAllExpense = async (_request, _response) => {
+routes.get("/expense", async (_request, _response) => {
   try {
     const response = await fetch(BACKEND_URL, {
       method: "get",
@@ -53,9 +64,9 @@ export const findAllExpense = async (_request, _response) => {
     console.log(error);
     _response.status(500);
   }
-};
+});
 
-export const findExpenseById = async (request, _response) => {
+routes.get("/expense/:id", async (request, _response) => {
   const { id } = request.params;
 
   if (!id) {
@@ -75,7 +86,21 @@ export const findExpenseById = async (request, _response) => {
     console.log(error);
     _response.status(500);
   }
-};
+});
+
+app.use(json());
+
+app.use(
+  cors({
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Access-Control-Allow-Origin", "Accept"],
+    origin: "*",
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
+
+app.use(routes);
 
 const convertExpense = (expense = {}) => ({
   id: expense.id,
@@ -103,3 +128,5 @@ const formatDate = (date = "") => {
 const addZero = (num) => (num <= 9 ? `0${num}` : num);
 
 const formatNumber = (num = "") => Number(num.replace(/[,]/, "."));
+
+app.listen(process.env.PORT || 3000, () => console.log("app started!"));

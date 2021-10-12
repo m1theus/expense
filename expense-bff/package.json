@@ -1,12 +1,11 @@
 {
   "name": "expense-bff",
   "version": "1.0.0",
-  "main": "src/main.js",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/main.js"
+    "start": "node ."
   },
-  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
