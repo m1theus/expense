@@ -36,6 +36,6 @@ jobs:
           environment_name: expense-bff
           version_label: ${{ github.run_id }}
           version_description: ${{ github.sha }}
-          deployment_package: deploy.zip
+          deployment_package: ./expense-bff/deploy.zip
           use_existing_version_if_available: true
           wait_for_environment_recovery: 120
