@@ -1,8 +1,11 @@
+server:
+  port: ${SERVER_PORT:8080}
+
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/expenseapi?schema=expenseapi
-    username: expenseapi
-    password: expenseapi
+    url: r2dbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/expenseapi?schema=expenseapi
+    username: ${DATABASE_USERNAME:expenseapi}
+    password: ${DATABASE_PASSWORD:expenseapi}
     pool:
       initial-size: 10
       max-size: 33
