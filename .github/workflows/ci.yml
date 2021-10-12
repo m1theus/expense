@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - 'expense-api/**'
-      - '.github/worksflows/ci.yml'
+      - '.github/workflows/ci.yml'
     branches: [main]
   pull_request:
     paths:
@@ -51,4 +51,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-report
-          path: build/reports/tests/test
+          path: expense-api/build/reports/tests/test/*
